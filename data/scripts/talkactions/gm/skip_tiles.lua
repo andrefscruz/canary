@@ -14,11 +14,11 @@ function skipTiles.onSay(player, words, param)
 	local position = player:getPosition()
 	position:getNextPosition(player:getDirection(), steps)
 
-	position = player:getClosestFreePosition(position, false)
-	if position.x == 0 then
-		player:sendCancelMessage("You cannot teleport there.")
-		return true
-	end
+	-- position = player:getClosestFreePosition(position, false)
+	-- if position.x == 0 then
+	-- 	player:sendCancelMessage("You cannot teleport there.")
+	-- 	return true
+	-- end
 
 	player:teleportTo(position)
 	return true

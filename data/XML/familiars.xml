@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <familiars>
 	<!-- Sorcerer -->
-	<familiar vocation="1" lookType="994" name="Thundergiant" premium="yes" unlocked="no" enabled="yes" />
-	<familiar vocation="5" lookType="994" name="Thundergiant" premium="yes" unlocked="no" enabled="yes" />
+	<familiar vocation="1" lookType="994" name="Thundergiant" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="5" lookType="994" name="Thundergiant" premium="yes" unlocked="yes" enabled="yes" />
 	<familiar vocation="1" lookType="1367" name="Bladespark" premium="yes" unlocked="no" enabled="yes" type="quest" />
 	<familiar vocation="5" lookType="1367" name="Bladespark" premium="yes" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="1" lookType="2541" name="Voltbringer" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="5" lookType="2541" name="Voltbringer" premium="yes" unlocked="yes" enabled="yes" />
 
 	<!-- Druid -->
-	<familiar vocation="2" lookType="993" name="Grovebeast" premium="no" unlocked="no" enabled="yes" />
-	<familiar vocation="6" lookType="993" name="Grovebeast" premium="no" unlocked="no" enabled="yes" />
-	<familiar vocation="2" lookType="1364" name="Mossmasher" premium="no" unlocked="no" enabled="yes" type="quest" />
-	<familiar vocation="6" lookType="1364" name="Mossmasher" premium="no" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="2" lookType="993" name="Grovebeast" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="6" lookType="993" name="Grovebeast" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="2" lookType="1364" name="Mossmasher" premium="yes" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="6" lookType="1364" name="Mossmasher" premium="yes" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="2" lookType="2540" name="Treeshade" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="6" lookType="2540" name="Treeshade" premium="yes" unlocked="yes" enabled="yes" />
 
 	<!-- Paladin -->
-	<familiar vocation="3" lookType="992" name="Emberwing" premium="no" unlocked="no" enabled="yes" />
-	<familiar vocation="7" lookType="992" name="Emberwing" premium="yes" unlocked="no" enabled="yes" />
-	<familiar vocation="3" lookType="1366" name="Sandscourge" premium="no" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="3" lookType="992" name="Emberwing" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="7" lookType="992" name="Emberwing" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="3" lookType="1366" name="Sandscourge" premium="yes" unlocked="no" enabled="yes" type="quest" />
 	<familiar vocation="7" lookType="1366" name="Sandscourge" premium="yes" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="3" lookType="2542" name="Elysara" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="7" lookType="2542" name="Elysara" premium="yes" unlocked="yes" enabled="yes" />
 
 	<!-- Knight -->
-	<familiar vocation="4" lookType="991" name="Skullfrost" premium="yes" unlocked="no" enabled="yes" />
-	<familiar vocation="8" lookType="991" name="Skullfrost" premium="yes" unlocked="no" enabled="yes" />
+	<familiar vocation="4" lookType="991" name="Skullfrost" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="8" lookType="991" name="Skullfrost" premium="yes" unlocked="yes" enabled="yes" />
 	<familiar vocation="4" lookType="1365" name="Snowbash" premium="yes" unlocked="no" enabled="yes" type="quest" />
 	<familiar vocation="8" lookType="1365" name="Snowbash" premium="yes" unlocked="no" enabled="yes" type="quest" />
+	<familiar vocation="4" lookType="2543" name="Void Caster" premium="yes" unlocked="yes" enabled="yes" />
+	<familiar vocation="8" lookType="2543" name="Void Caster" premium="yes" unlocked="yes" enabled="yes" />
 </familiars>

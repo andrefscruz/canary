@@ -63,7 +63,11 @@ function MonsterType:generateLootRoll(config, resultTable, player)
 		if count > 0 and item.unique then
 			uniqueItems[item.itemId] = true
 		end
-
+		if result[item.itemId].unique then
+			-- logger.debug("Player: {} | Item dropado: {}", player:getName(), item.itemId )
+			local discordMessage = ":package: **" .. player:getName() .. " id:**" .. item.itemId .. "**."
+    		Webhook.sendMessage(discordMessage, announcementChannels["log-rares"]) -- Certifique-se de configurar "log-rares".
+		end
 		::continue::
 	end
 

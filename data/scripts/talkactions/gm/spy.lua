@@ -1,74 +1,94 @@
-local function getItemsInContainer(container, sep)
-	local text = ""
-	local tsep = ""
-	local count
-	for i = 1, sep do
-		tsep = tsep .. "-"
-	end
-	tsep = tsep .. ">"
-	for slot = 0, container:getSize() - 1 do
-		local item = container:getItem(slot)
-		if not item:isContainer() then
-			if item.type > 0 then
-				count = "(" .. item.type .. "x)"
-			else
-				count = ""
-			end
-			text = text .. "\n" .. tsep .. ItemType(item.itemid):getName() .. " " .. count
-		else
-			if item:getSize() > 0 then
-				text = text .. "\n" .. tsep .. ItemType(item.itemd):getName()
-				text = text .. getItemsInContainer(item, sep + 2)
-			else
-				text = text .. "\n" .. tsep .. ItemType(item.itemid):getName()
-			end
-		end
-	end
-	return text
+-- Define constants
+local MESSAGE_EVENT_ADVANCE = MESSAGE_EVENT_ADVANCE or 18 -- Replace with the correct constant value if different
+
+-- Initialize global variables
+STALKED_PLAYERS = STALKED_PLAYERS or {}
+STALKING_ACTIVE = STALKING_ACTIVE or false
+
+-- Function to stalk a player
+local function stalkPlayer(player, target)
+    if player and not target then
+        player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'Stalked player lost.')
+        return false
+    end
+
+    if not player then
+        return false
+    end
+
+    if not player:getPathTo(target:getPosition()) then
+        player:teleportTo(target:getPosition())
+    end
+
+    if player:getFollowCreature() ~= target then
+        player:setFollowCreature(target)
+    end
+    return true
 end
 
-local spy = TalkAction("/spy")
+-- Function to continuously stalk players
+local function stalkPlayers()
+    local stalkingActive = false
+    for playerId, targetId in pairs(STALKED_PLAYERS) do
+        local stalkSuccess = stalkPlayer(Player(playerId), Player(targetId))
+        if not stalkSuccess then
+            STALKED_PLAYERS[playerId] = nil
+        end
+        stalkingActive = stalkingActive or stalkSuccess
+    end
 
-function spy.onSay(player, words, param)
-	-- create log
-	logCommand(player, words, param)
+    STALKING_ACTIVE = stalkingActive
 
-	if param == "" then
-		player:sendCancelMessage("Write the name of the character to be spyed.")
-		return true
-	end
-
-	local target = Player(param)
-
-	if target and target:isPlayer() then
-		local slotName = { "Helmet", "Amulet", "Backpack", "Armor", "Right Hand", "Left Hand", "Legs", "Boots", "Ring", "Arrow" }
-		local text = "Equipments of " .. target:getName()
-		for i = 1, 10 do
-			text = text .. "\n\n"
-			local item = target:getSlotItem(i)
-			if item and item.itemid > 0 then
-				if item:isContainer() then
-					text = text .. slotName[i] .. ": " .. ItemType(item.itemid):getName() .. getItemsInContainer(item, 1)
-				else
-					local count
-					if item.type > 0 then
-						count = "(" .. item.type .. "x)"
-					else
-						count = ""
-					end
-					text = text .. slotName[i] .. ": " .. ItemType(item.itemid):getName() .. " " .. count
-				end
-			else
-				text = text .. slotName[i] .. ": Empty"
-			end
-		end
-		player:showTextDialog(6528, text)
-	else
-		player:sendCancelMessage("This player is offline or doesn't exist.")
-	end
-	return true
+    if STALKING_ACTIVE then
+        addEvent(stalkPlayers, 500)
+    end
 end
 
-spy:separator(" ")
-spy:groupType("gamemaster")
-spy:register()
+-- Revscriptsys Event
+local stalkAction = TalkAction("/spy")
+
+function stalkAction.onSay(player, words, param)
+    if not player:getGroup():getAccess() then
+        return true
+    end
+
+    if param == 'stop' then
+        if not STALKED_PLAYERS[player:getId()] then
+            return false
+        end
+
+        local target = Player(STALKED_PLAYERS[player:getId()])
+      
+        STALKED_PLAYERS[player:getId()] = nil
+        player:setFollowCreature(nil)
+
+        if target then
+            player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You are no longer stalking ' .. target:getName() .. '.')
+        end
+        return false
+    end
+
+    local target = Player(param)
+    if not target then
+        player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'Player not found.')
+        return false
+    end
+
+    player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You are now stalking ' .. target:getName() .. '.')
+    if not player:isInGhostMode() then
+        player:setGhostMode(true)
+    end
+
+    STALKED_PLAYERS[player:getId()] = target:getId()
+
+    if not STALKING_ACTIVE then
+        STALKING_ACTIVE = true
+        stalkPlayers()
+    end
+
+    return false
+end
+
+stalkAction:separator(" ")
+stalkAction:groupType("god")
+stalkAction:register()
